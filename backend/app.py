@@ -327,6 +327,59 @@ def fetch_raw_catalogs():
 # [9] PACKAGE API ROUTES
 # =============================================================================
 
+def apply_overrides(game, packages_list):
+    try:
+        overrides = list(db["product_overrides"].find({"game": game}))
+        override_map = {str(o["pkg_id"]): o for o in overrides}
+        
+        updated_list = []
+        for pkg in packages_list:
+            p = pkg.copy()
+            ovr = override_map.get(str(p["id"]))
+            if ovr:
+                if "price" in ovr:
+                    p["price"] = ovr["price"]
+                if "disabled" in ovr:
+                    p["disabled"] = ovr["disabled"]
+            
+            # If a package is disabled, we usually don't send it to the frontend, 
+            # OR we send it but marked as disabled. Let's send it but frontend will filter it 
+            # if we are not the admin. Actually, to be safe, let's just mark it.
+            updated_list.append(p)
+        return updated_list
+    except Exception as e:
+        return packages_list
+
+@app.route('/api/admin/packages', methods=['POST'])
+def update_package_override():
+    try:
+        data = request.json
+        game = data.get("game")
+        pkg_id = data.get("pkg_id")
+        price = data.get("price")
+        disabled = data.get("disabled")
+        
+        if not game or not pkg_id:
+            return jsonify({"status": "ERROR", "message": "Missing game or pkg_id"}), 400
+            
+        update_fields = {}
+        if price is not None:
+            update_fields["price"] = float(price)
+        if disabled is not None:
+            update_fields["disabled"] = bool(disabled)
+            
+        if not update_fields:
+            return jsonify({"status": "SUCCESS"}), 200
+            
+        db["product_overrides"].update_one(
+            {"game": game, "pkg_id": str(pkg_id)},
+            {"$set": update_fields},
+            upsert=True
+        )
+        return jsonify({"status": "SUCCESS", "message": "Product updated"})
+    except Exception as e:
+        return jsonify({"status": "ERROR", "message": str(e)}), 500
+
 @app.route('/api/packages', methods=['GET'])
 def get_packages():
     """
@@ -339,11 +392,20 @@ def get_packages():
     pkg_id         = request.args.get("id")
     pkg_list, pool = _pool_for(game)
 
+    pkg_list = apply_overrides(game, pkg_list)
+
     if pkg_id:
-        pkg = pool.get(str(pkg_id))
+        pkg = next((p for p in pkg_list if str(p["id"]) == str(pkg_id)), None)
         if not pkg:
             return jsonify({"status": "ERROR", "message": f"Package {pkg_id} not found for game={game}"}), 404
         return jsonify({"status": "SUCCESS", "package": pkg})
+
+    # Filter out disabled for normal users? Let's assume normal users use this endpoint, 
+    # so we SHOULD filter disabled items out for the storefront!
+    # But admin needs to see them. Let's pass `?admin=1` from admin panel.
+    is_admin = request.args.get("admin") == "1"
+    if not is_admin:
+        pkg_list = [p for p in pkg_list if not p.get("disabled", False)]
 
     return jsonify({"status": "SUCCESS", "game": game, "packages": pkg_list, "total": len(pkg_list)})
 
@@ -351,35 +413,50 @@ def get_packages():
 @app.route('/api/packages/mlbb', methods=['GET'])
 @app.route('/api/packages/mlbb-kh', methods=['GET'])
 def get_mlbb_kh_packages():
+    pkg_list = apply_overrides("mlbb-kh", MLBB_KH_PACKAGES)
+    is_admin = request.args.get("admin") == "1"
+    if not is_admin:
+        pkg_list = [p for p in pkg_list if not p.get("disabled", False)]
+
     pkg_id = request.args.get("id")
     if pkg_id:
-        pkg = MLBB_KH_BY_ID.get(str(pkg_id))
+        pkg = next((p for p in pkg_list if str(p["id"]) == str(pkg_id)), None)
         if not pkg:
             return jsonify({"status": "ERROR", "message": f"MLBB KH package {pkg_id} not found"}), 404
         return jsonify({"status": "SUCCESS", "package": pkg})
-    return jsonify({"status": "SUCCESS", "game": "mlbb-kh", "packages": MLBB_KH_PACKAGES, "total": len(MLBB_KH_PACKAGES)})
+    return jsonify({"status": "SUCCESS", "game": "mlbb-kh", "packages": pkg_list, "total": len(pkg_list)})
 
 
 @app.route('/api/packages/mlbb-ph', methods=['GET'])
 def get_mlbb_ph_packages():
+    pkg_list = apply_overrides("mlbb-ph", MLBB_PH_PACKAGES)
+    is_admin = request.args.get("admin") == "1"
+    if not is_admin:
+        pkg_list = [p for p in pkg_list if not p.get("disabled", False)]
+
     pkg_id = request.args.get("id")
     if pkg_id:
-        pkg = MLBB_PH_BY_ID.get(str(pkg_id))
+        pkg = next((p for p in pkg_list if str(p["id"]) == str(pkg_id)), None)
         if not pkg:
             return jsonify({"status": "ERROR", "message": f"MLBB PH package {pkg_id} not found"}), 404
         return jsonify({"status": "SUCCESS", "package": pkg})
-    return jsonify({"status": "SUCCESS", "game": "mlbb-ph", "packages": MLBB_PH_PACKAGES, "total": len(MLBB_PH_PACKAGES)})
+    return jsonify({"status": "SUCCESS", "game": "mlbb-ph", "packages": pkg_list, "total": len(pkg_list)})
 
 
 @app.route('/api/packages/ff', methods=['GET'])
 def get_ff_packages():
+    pkg_list = apply_overrides("ff", FF_PACKAGES)
+    is_admin = request.args.get("admin") == "1"
+    if not is_admin:
+        pkg_list = [p for p in pkg_list if not p.get("disabled", False)]
+
     pkg_id = request.args.get("id")
     if pkg_id:
-        pkg = FF_BY_ID.get(str(pkg_id))
+        pkg = next((p for p in pkg_list if str(p["id"]) == str(pkg_id)), None)
         if not pkg:
             return jsonify({"status": "ERROR", "message": f"FF package {pkg_id} not found"}), 404
         return jsonify({"status": "SUCCESS", "package": pkg})
-    return jsonify({"status": "SUCCESS", "game": "ff", "packages": FF_PACKAGES, "total": len(FF_PACKAGES)})
+    return jsonify({"status": "SUCCESS", "game": "ff", "packages": pkg_list, "total": len(pkg_list)})
 
 # =============================================================================
 # [10] CAMRAPID PROXY ROUTES
@@ -460,6 +537,71 @@ def get_orders_history():
     try:
         res = requests.get(URL_ORDERS_HIST, params={"api_key": CAMRAPID_API_KEY}, timeout=15)
         return jsonify(res.json())
+    except Exception as e:
+        return jsonify({"status": "ERROR", "message": str(e)}), 500
+
+@app.route('/api/admin/dashboard', methods=['GET'])
+def admin_dashboard():
+    try:
+        # 1. Total Orders
+        total_orders = orders_col.count_documents({})
+        
+        # 2. Total Revenue (Only SUCCESS orders)
+        success_orders = list(orders_col.find({"status": "SUCCESS"}))
+        total_revenue = sum(float(order.get("price", 0)) for order in success_orders)
+        
+        # 3. Active Users (approximate by unique user_id/game_id)
+        # Using game_id as a proxy for unique users
+        unique_users = len(orders_col.distinct("game_id"))
+        
+        # 4. Recent Orders (Last 10)
+        recent = list(orders_col.find().sort("_id", -1).limit(10))
+        for r in recent:
+            r["_id"] = str(r["_id"]) # stringify ObjectId
+        
+        return jsonify({
+            "status": "SUCCESS",
+            "total_revenue": total_revenue,
+            "total_orders": total_orders,
+            "active_users": unique_users,
+            "recent_orders": recent
+        })
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({"status": "ERROR", "message": str(e)}), 500
+
+@app.route('/api/settings', methods=['GET'])
+def get_settings():
+    try:
+        settings = db["settings"].find_one({"_id": "global_config"})
+        if not settings:
+            settings = {
+                "mlbb_kh_logo": "https://i.pinimg.com/736x/d2/ef/4a/d2ef4a14520c95d8c0927cea7334488a.jpg",
+                "mlbb_kh_bg": "assets/img/mlbb-bg-kh.png",
+                "ff_logo": "https://i.pinimg.com/736x/21/cd/71/21cd71cb3229b3deaa1e8fbc83d47f9e.jpg",
+                "ff_bg": "assets/img/freefire-bg.jpg" # Placeholder
+            }
+        else:
+            settings["_id"] = str(settings["_id"])
+        return jsonify({"status": "SUCCESS", "data": settings})
+    except Exception as e:
+        return jsonify({"status": "ERROR", "message": str(e)}), 500
+
+@app.route('/api/settings', methods=['POST'])
+def update_settings():
+    try:
+        data = request.json
+        # Remove _id if it exists in data to avoid mongo errors
+        if "_id" in data:
+            del data["_id"]
+            
+        db["settings"].update_one(
+            {"_id": "global_config"},
+            {"$set": data},
+            upsert=True
+        )
+        return jsonify({"status": "SUCCESS", "message": "Settings updated"})
     except Exception as e:
         return jsonify({"status": "ERROR", "message": str(e)}), 500
 

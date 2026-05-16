@@ -93,7 +93,7 @@
             <div class="bg-[#1A1F33] rounded-2xl overflow-hidden shadow-xl border border-white/5">
                 <div class="relative h-48">
                     <!-- MLBB Banner -->
-                    <img src="../../assets/img/mlbb-bg-kh.png" class="w-full h-full object-cover">
+                    <img id="dyn-mlbb-bg" src="../../assets/img/mlbb-bg-kh.png" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#1A1F33] to-transparent"></div>
                 </div>
                 
@@ -101,7 +101,7 @@
                     <div class="flex gap-4">
                         <div class="w-20 h-20 rounded-xl overflow-hidden relative border-2 border-[#1A1F33] shrink-0 -mt-10 bg-[#1A1F33] shadow-lg">
                             <div class="absolute top-0 left-0 bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded-br-lg z-10 font-black uppercase tracking-wider">HOT</div>
-                            <img src="../../assets/img/mlbb-icon.png" class="w-full h-full object-cover">
+                            <img id="dyn-mlbb-logo" src="../../assets/img/mlbb-icon.png" class="w-full h-full object-cover">
                         </div>
                         <div class="-mt-2">
                             <h1 class="text-xl font-black oswald uppercase tracking-widest text-white shadow-sm">MOBILE LEGENDS KH</h1>
@@ -880,6 +880,32 @@ document.addEventListener('DOMContentLoaded', () => {
     updateButtonState();
     window.addEventListener('verificationChanged', updateButtonState);
 });
+</script>
+<script>
+    const API_BASE_CFG = (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost") 
+        ? "http://127.0.0.1:5000" 
+        : "https://backendtopup.onrender.com";
+
+    async function applyDynamicSettings() {
+        try {
+            const res = await fetch(`${API_BASE_CFG}/api/settings`);
+            const data = await res.json();
+            if (data.status === "SUCCESS") {
+                const s = data.data;
+                if (s.mlbb_kh_bg) {
+                    const el = document.getElementById('dyn-mlbb-bg');
+                    if(el) el.src = s.mlbb_kh_bg;
+                }
+                if (s.mlbb_kh_logo) {
+                    const el = document.getElementById('dyn-mlbb-logo');
+                    if(el) el.src = s.mlbb_kh_logo;
+                }
+            }
+        } catch(e) {
+            console.error("Could not load dynamic settings", e);
+        }
+    }
+    applyDynamicSettings();
 </script>
 </body>
 </html>
