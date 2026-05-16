@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en" oncontextmenu="return false;">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>NHOY TOPUP - Free Fire</title>
+    <meta name="title" content="NHOY TOPUP - Reliable Game Top-Up Service">
+    <meta name="description" content="សេវាកម្មបញ្ចូលពេជ្រហ្គេម Free Fire ដែលរហ័ស ទាន់ចិត្ត និងសុវត្ថិភាព ១០០% សម្រាប់អ្នកលេងហ្គេមក្នុងប្រទេសកម្ពុជា។">
+    
+    <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/4d2LRF8t/photo-2026-04-09-10-37-33-removebg-preview.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;600;700&display=swap');
+        
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        body { 
+            background-color: #0B0F19; /* Darkest background */
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; 
+            min-height: 100vh;
+        }
+        
+        .oswald { font-family: 'Oswald', sans-serif; }
+        
+        input { user-select: text !important; -webkit-user-select: text !important; }
+
+        /* Package cards */
+        .package-card.selected { border-color: #10b981 !important; background: #161A2B !important; }
+        .package-card.selected .check-icon { display: flex !important; }
+
+        /* Modal */
+        .modal-active { display: flex !important; animation: fadeInModal 0.2s ease; }
+        @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .animate-slideUp { animation: slideUp 0.3s ease-out forwards; }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .spinner { border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid #fff; border-radius: 50%; width: 14px; height: 14px; animation: spin 1s linear infinite; display: inline-block; }
+
+    </style>
+</head>
+<body class="pb-10">
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="bg-[#111624] border-b border-white/5 sticky top-0 z-50 shadow-xl">
+    <div class="max-w-[1200px] mx-auto px-4 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <button onclick="toggleMenu()" class="text-xl text-gray-300 hover:text-white transition">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href='../../index.html'">
+                <img src="https://i.postimg.cc/4d2LRF8t/photo-2026-04-09-10-37-33-removebg-preview.png" class="w-8 h-8 object-contain">
+                <h1 class="text-xl font-black oswald uppercase tracking-wider flex items-center">
+                    <span class="text-white">NHOY</span><span class="text-[#10b981]">TOPUP</span>
+                </h1>
+            </div>
+        </div>
+        
+        <!-- Desktop Search -->
+        <div class="hidden md:flex flex-1 max-w-md mx-8 relative">
+            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+            <input type="text" placeholder="What game are you looking for?" 
+                   class="w-full bg-[#1A1F33] text-sm text-white rounded-full py-2 pl-10 pr-4 outline-none border border-white/5 focus:border-[#10b981]/50 transition">
+            <button class="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 bg-[#0B0F19] rounded-full flex items-center justify-center text-[#10b981] text-xs hover:bg-[#10b981] hover:text-white transition">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <button class="bg-[#10b981] hover:bg-[#059669] text-white px-5 py-2 rounded-lg font-bold text-sm transition flex items-center gap-2 shadow-lg shadow-[#10b981]/20">
+            <i class="fas fa-sign-in-alt"></i> <span class="hidden sm:inline">Login</span>
+        </button>
+    </div>
+</nav>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<div class="max-w-[1200px] mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- ── LEFT COLUMN: Game Info & Account ── -->
+        <div class="lg:col-span-4 space-y-6">
+            
+            <!-- Game Banner -->
+            <div class="bg-[#1A1F33] rounded-2xl overflow-hidden shadow-xl border border-white/5">
+                <div class="relative h-48">
+                    <!-- Standard FF Banner -->
+                    <img src="https://i.pinimg.com/736x/fa/a5/03/faa50399f05f48683edf56bd820a13db.jpg" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A1F33] to-transparent"></div>
+                </div>
+                
+                <div class="px-5 relative">
+                    <div class="flex gap-4">
+                        <div class="w-20 h-20 rounded-xl overflow-hidden relative border-2 border-[#1A1F33] shrink-0 -mt-10 bg-[#1A1F33] shadow-lg">
+                            <div class="absolute top-0 left-0 bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded-br-lg z-10 font-black uppercase tracking-wider">HOT</div>
+                            <img src="https://play-lh.googleusercontent.com/Tzh1vMigK1Cn7_KIaMvKBVQRQapIMWMMqqyA6UqJTAYRpino4vvX6ZvYcVjZ_D8g19-DfHKCVeO2QPWl8vHGzw=w480-h960" class="w-full h-full object-cover">
+                        </div>
+                        <div class="-mt-2">
+                            <h1 class="text-xl font-black oswald uppercase tracking-widest text-white shadow-sm">FREE FIRE KH</h1>
+                            <div class="flex gap-1.5 mt-2">
+                                <div class="bg-black text-white text-[9px] font-bold px-2 py-1 rounded flex items-center hover:bg-gray-800 transition cursor-pointer"><i class="fab fa-google-play mr-1.5 text-green-400"></i> Google Play</div>
+                                <div class="bg-black text-white text-[9px] font-bold px-2 py-1 rounded flex items-center hover:bg-gray-800 transition cursor-pointer"><i class="fab fa-apple mr-1.5"></i> App Store</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="px-5 pb-6 mt-6">
+                    <div class="flex justify-between text-center py-4 border-y border-white/5">
+                        <div>
+                            <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mb-1">Rating</p>
+                            <p class="text-yellow-500 font-bold text-sm">4.4 <i class="fas fa-star text-[10px]"></i></p>
+                        </div>
+                        <div>
+                            <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mb-1">Transaction</p>
+                            <p class="text-white font-bold text-sm">9999+</p>
+                        </div>
+                        <div>
+                            <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mb-1">Feedback</p>
+                            <p class="text-white font-bold text-sm">1.2K+</p>
+                        </div>
+                        <div>
+                            <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mb-1">More</p>
+                            <p class="text-[#10b981] font-bold text-sm cursor-pointer hover:underline">View</p>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-gray-400 mt-5 leading-relaxed font-medium">Garena Free Fire is a fast-paced, 10-minute battle royale game for mobile where 50 players parachute onto an island, scavenging for weapons and equipment.</p>
+                </div>
+            </div>
+
+            <!-- Account Info -->
+            <div class="bg-[#1A1F33] rounded-2xl p-6 shadow-xl border border-white/5">
+                <div class="flex items-center justify-between mb-5">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-[#10b981]/20 text-[#10b981] flex items-center justify-center text-sm"><i class="fas fa-user"></i></div>
+                        <h3 class="font-bold text-white text-sm uppercase tracking-widest">Account Info</h3>
+                    </div>
+                    <i class="fas fa-question-circle text-gray-500 cursor-help hover:text-white transition"></i>
+                </div>
+                
+                <div class="relative flex">
+                    <label class="absolute -top-2 left-3 bg-[#1A1F33] px-1 text-[10px] text-[#10b981] font-bold tracking-wider">GAME ID</label>
+                    <input type="tel" id="gameId" placeholder="Enter Player ID" class="w-full bg-[#0B0F19] border border-gray-600 rounded-xl p-3 pl-4 pr-12 text-sm focus:border-[#10b981] outline-none text-white transition-colors h-14 font-medium">
+                    <button onclick="pasteGameId()" class="absolute right-2 top-2 bottom-2 bg-[#1A1F33] text-[#10b981] hover:text-white hover:bg-[#10b981] border border-white/5 rounded-lg px-3 transition-colors shadow-sm flex items-center justify-center" title="Paste ID">
+                        <i class="fas fa-paste text-sm"></i>
+                    </button>
+                </div>
+                
+                <div class="flex justify-between items-center mt-4 bg-[#0B0F19] rounded-lg p-3 border border-white/5">
+                    <span class="text-xs font-medium text-gray-500">UserName: <span id="playerNickname" class="text-gray-300 font-bold ml-1 tracking-wide">-</span></span>
+                    <span id="accountStatus" class="flex items-center text-[10px] font-bold tracking-widest text-gray-500 uppercase">
+                        <div id="statusDot" class="w-2 h-2 bg-gray-500 rounded-full mr-2 shadow-[0_0_8px_rgba(107,114,128,0.5)]"></div> 
+                        <span id="statusText">IDLE</span>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── RIGHT COLUMN: Packages, Payment, Terms ── -->
+        <div class="lg:col-span-8 space-y-6">
+            
+            <!-- Packages Section -->
+            <div class="bg-[#1A1F33] rounded-2xl p-5 lg:p-7 shadow-xl border border-white/5 relative overflow-hidden">
+                <!-- Background decoration -->
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#10b981]/5 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3 relative z-10">
+                    <h3 class="flex items-center text-lg font-black text-white tracking-wide uppercase oswald">
+                        <div class="w-8 h-8 rounded bg-yellow-500/20 text-yellow-500 flex items-center justify-center mr-3"><i class="fas fa-cube"></i></div>
+                        Available Packages
+                    </h3>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest bg-[#0B0F19] px-3 py-1.5 rounded-lg" id="packageCount">0 PACKAGES</span>
+                </div>
+                
+                <!-- Filter Tabs -->
+                <div class="flex gap-2 mb-6 relative z-10 overflow-x-auto pb-1 custom-scrollbar">
+                    <button class="bg-[#2A314A] border border-[#10b981] text-[#10b981] px-4 py-2 rounded-xl text-[11px] font-bold flex items-center shrink-0 shadow-sm shadow-[#10b981]/10">
+                        <i class="fas fa-gem mr-2 text-[#10b981]"></i> GENERAL 
+                        <span class="bg-[#10b981]/20 text-[#10b981] ml-2 px-1.5 py-0.5 rounded text-[9px]" id="tabCount">0 items</span>
+                    </button>
+                    <!-- Future tabs can go here -->
+                </div>
+
+                <!-- Package Grid -->
+                <div id="packageContainer" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 relative z-10">
+                    <!-- Javascript populates this -->
+                </div>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="bg-[#1A1F33] rounded-2xl p-5 lg:p-7 shadow-xl border border-white/5 relative z-10">
+                <h3 class="flex items-center text-base font-black text-white mb-5 tracking-wide uppercase oswald">
+                    <div class="w-8 h-8 rounded bg-green-500/20 text-green-500 flex items-center justify-center mr-3"><i class="fas fa-credit-card text-sm"></i></div>
+                    Payment Methods
+                </h3>
+                <div class="border border-green-500 bg-[#0B0F19] p-4 rounded-xl relative cursor-pointer shadow-[0_0_15px_rgba(34,197,94,0.1)] transition-transform hover:scale-[1.01]">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-[#E31E24] rounded-lg flex items-center justify-center p-2 shadow-md">
+                            <img src="https://saktopup.com/assets/icon/KHQR.png" class="w-full h-full object-contain">
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm tracking-wide">ABA KHQR</h4>
+                            <p class="text-[11px] text-gray-400 mt-1">Scan to pay with any banking app</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-0 right-0 bg-green-500 text-white w-8 h-8 rounded-bl-xl rounded-tr-lg flex items-center justify-center text-xs shadow-md"><i class="fas fa-check"></i></div>
+                </div>
+            </div>
+
+            <!-- Terms & Summary Action -->
+            <div class="bg-[#1A1F33] rounded-2xl p-5 lg:p-7 shadow-xl border border-white/5">
+                <h3 class="flex items-center text-base font-black text-white mb-5 tracking-wide uppercase oswald">
+                    <div class="w-8 h-8 rounded bg-blue-500/20 text-blue-500 flex items-center justify-center mr-3"><i class="fas fa-shield-alt text-sm"></i></div>
+                    Agree to Terms & Conditions
+                </h3>
+                
+                <div class="bg-[#0B0F19] rounded-xl p-5 border border-white/5">
+                    <p class="text-[11.5px] text-gray-300 mb-4 leading-relaxed">
+                        I confirm that I've read and accept the <a href="#" class="text-[#10b981] font-bold hover:underline">Terms of Service</a> and <a href="#" class="text-[#10b981] font-bold hover:underline">Privacy Policy</a> of <strong>NHOYTOPUP</strong>.<br>
+                        <span class="text-gray-500 text-[10px] tracking-wider uppercase mt-1 block">Required before placing any order.</span>
+                    </p>
+                    
+                    <label class="flex items-center gap-3 cursor-pointer group w-fit">
+                        <div class="relative flex items-center justify-center">
+                            <input type="checkbox" id="termsCheck" checked class="peer appearance-none w-5 h-5 border-2 border-gray-600 rounded bg-[#1A1F33] checked:bg-[#10b981] checked:border-[#10b981] transition-colors cursor-pointer">
+                            <i class="fas fa-check absolute text-white text-[10px] opacity-0 peer-checked:opacity-100 pointer-events-none"></i>
+                        </div>
+                        <span class="text-xs font-bold text-white group-hover:text-[#10b981] transition-colors">I agree to the Terms & Conditions</span>
+                    </label>
+                </div>
+
+                <!-- Footer Action Area -->
+                <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-5 border-t border-white/5 pt-6">
+                    <div class="w-full sm:w-auto text-center sm:text-left bg-[#0B0F19] sm:bg-transparent p-4 sm:p-0 rounded-xl">
+                        <p class="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-1">Total Amount</p>
+                        <p class="text-3xl font-black text-[#10b981] leading-none mb-1 tracking-tight" id="displayTotal">$0.00</p>
+                        <p class="text-[11px] text-gray-400 font-bold truncate max-w-[200px]" id="displayProduct">-</p>
+                    </div>
+                    <button id="payBtn" disabled onclick="handlePayment()"
+                            class="w-full sm:w-auto px-12 py-4 rounded-xl font-black text-sm uppercase tracking-widest transition-all duration-300
+                                   disabled:bg-gray-800 disabled:text-gray-500 disabled:cursor-not-allowed disabled:shadow-none
+                                   enabled:bg-gradient-to-r enabled:from-[#10b981] enabled:to-[#059669] enabled:text-white enabled:hover:brightness-110 enabled:active:scale-95 shadow-[0_8px_20px_-6px_rgba(6,182,212,0.5)] group relative overflow-hidden">
+                        <span class="relative z-10 flex items-center justify-center gap-2" id="payBtnText">
+                            <i class="fas fa-shopping-cart"></i> BUY NOW
+                        </span>
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none"></div>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="bg-[#0B0F19] border-t border-white/5 mt-10 py-12 relative overflow-hidden" style="background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.2) 0px, rgba(0,0,0,0.2) 2px, transparent 2px, transparent 8px);">
+    
+    <div class="max-w-[1200px] mx-auto px-4 relative z-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+        
+        <!-- Column 1 -->
+        <div>
+            <div class="flex items-center gap-3 mb-4">
+                <img src="https://i.postimg.cc/4d2LRF8t/photo-2026-04-09-10-37-33-removebg-preview.png" class="w-10 h-10 rounded-full object-cover">
+                <h2 class="text-xl font-bold text-white tracking-wide">nhoy Hub</h2>
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                Your source for esign, Trollstore, and other iOS utilities. Providing free downloads and resources for the community.
+            </p>
+            <div class="flex space-x-3">
+                <a href="#" class="w-8 h-8 rounded-full bg-[#1A1F33] flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition"><i class="fab fa-telegram-plane text-sm"></i></a>
+                <a href="#" class="w-8 h-8 rounded-full bg-[#1A1F33] flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition"><i class="fab fa-facebook-f text-sm"></i></a>
+                <a href="#" class="w-8 h-8 rounded-full bg-[#1A1F33] flex items-center justify-center text-gray-400 hover:text-white hover:bg-red-600 transition"><i class="fab fa-youtube text-sm"></i></a>
+                <a href="#" class="w-8 h-8 rounded-full bg-[#1A1F33] flex items-center justify-center text-gray-400 hover:text-white hover:bg-purple-500 transition"><i class="fab fa-instagram text-sm"></i></a>
+            </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div>
+            <h3 class="text-white font-bold mb-4 relative inline-block">
+                Quick Links
+                <span class="absolute -bottom-1 left-0 w-8 h-0.5 bg-[#10b981]"></span>
+            </h3>
+            <ul class="space-y-3 mt-4">
+                <li><a href="#" class="text-gray-400 text-sm hover:text-white transition">Home</a></li>
+                <li><a href="#" class="text-gray-400 text-sm hover:text-white transition">ESIGN</a></li>
+                <li><a href="#" class="text-gray-400 text-sm hover:text-white transition">Roblox Hack</a></li>
+                <li><a href="#" class="text-gray-400 text-sm hover:text-white transition">Troll Store</a></li>
+                <li><a href="#" class="text-gray-400 text-sm hover:text-white transition">About</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 3 -->
+        <div>
+            <h3 class="text-white font-bold mb-4 relative inline-block">
+                Contact Us
+                <span class="absolute -bottom-1 left-0 w-8 h-0.5 bg-[#10b981]"></span>
+            </h3>
+            <div class="space-y-4 mt-4">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-envelope text-gray-400 mt-1"></i>
+                    <p class="text-gray-400 text-sm leading-relaxed">For support, please reach out via our social channels.</p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-info-circle text-gray-400 mt-1"></i>
+                    <p class="text-gray-400 text-sm leading-relaxed">We do not offer direct phone or email support at this time.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="max-w-[1200px] mx-auto px-4 relative z-10 mt-10 pt-6 border-t border-white/5 text-center flex flex-col items-center">
+        <p class="text-xs text-gray-600 font-medium tracking-wide">© 2026 Nhoytopup.store. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<!-- ═══════════ SIDEBAR MENU ═══════════ -->
+<div id="sidebarOverlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/80 z-[60] hidden backdrop-blur-sm"></div>
+<div id="sidebarMenu" class="fixed top-0 left-0 h-full w-[280px] bg-[#111624] z-[70] shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col border-r border-white/5">
+    <div class="flex justify-between items-center mb-10">
+        <h1 class="text-2xl font-black oswald text-white italic tracking-tighter">NHOY<span class="text-[#10b981]">TOPUP</span></h1>
+        <button onclick="toggleMenu()" class="text-gray-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="flex flex-col space-y-6">
+        <a href="../../index.html" class="flex items-center text-sm font-bold text-gray-300 hover:text-[#10b981] transition group">
+            <div class="w-8 h-8 rounded bg-[#1A1F33] group-hover:bg-[#10b981]/10 flex items-center justify-center mr-3 transition"><i class="fas fa-home text-[#10b981]"></i></div> Home
+        </a>
+        <a href="https://t.me/irra_topup" target="_blank" class="flex items-center text-sm font-bold text-gray-300 hover:text-[#10b981] transition group">
+            <div class="w-8 h-8 rounded bg-[#1A1F33] group-hover:bg-[#10b981]/10 flex items-center justify-center mr-3 transition"><i class="fab fa-telegram text-[#10b981]"></i></div> Contact Support
+        </a>
+    </div>
+</div>
+
+<!-- ═══════════ PAYMENT MODAL ═══════════ -->
+<div id="paymentModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+    <div onclick="closeModal()" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+    <div id="modalSheet" class="relative w-full max-w-md bg-[#161A2B] rounded-2xl overflow-hidden animate-slideUp shadow-2xl border border-white/10">
+        <!-- RED QR HEADER -->
+        <div class="bg-[#E31E24] pt-6 pb-8 flex flex-col items-center relative">
+            <img src="https://saktopup.com/assets/icon/KHQR.png" class="h-10" alt="KHQR">
+            <button onclick="closeModal()" class="absolute right-4 top-4 text-white/80 hover:text-white bg-black/20 w-8 h-8 rounded-full flex items-center justify-center transition">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- WHITE QR CONTENT (styled dark for theme) -->
+        <div class="bg-[#1A1F33] -mt-4 rounded-t-[1.5rem] relative px-6 pt-8 pb-8">
+            <div class="text-center mb-6">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Total Amount</p>
+                <div class="flex items-baseline justify-center gap-1">
+                    <span id="modalAmount" class="text-4xl font-black text-[#10b981] leading-none">0.00</span>
+                    <span class="text-sm font-bold text-gray-500 uppercase">USD</span>
+                </div>
+            </div>
+
+            <div class="flex justify-center mb-6">
+                <div class="relative p-3 bg-white rounded-xl shadow-lg ring-4 ring-[#0B0F19]">
+                    <div id="qrcode" class="bg-white flex items-center justify-center"></div>
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div class="bg-[#1A1F33] border-[3px] border-white w-10 h-10 rounded-full flex items-center justify-center shadow-md">
+                            <span class="text-white text-lg font-bold">$</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-4">Scan KHQR with any Banking App</p>
+                <div class="flex items-center justify-center gap-3 bg-[#0B0F19] rounded-xl py-3 border border-white/5">
+                    <div class="w-4 h-4 border-2 border-gray-600 border-t-[#10b981] rounded-full animate-spin"></div>
+                    <span class="text-xs font-bold text-gray-300 uppercase tracking-wider">Awaiting Payment...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script>
+    // Terms Checkbox Logic
+    const termsCheck = document.getElementById('termsCheck');
+    termsCheck.addEventListener('change', () => {
+        if (typeof updateButtonState === 'function') updateButtonState();
+    });
+
+    function toggleMenu() {
+        const menu    = document.getElementById('sidebarMenu');
+        const overlay = document.getElementById('sidebarOverlay');
+        if (menu.classList.contains('-translate-x-full')) {
+            menu.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        } else {
+            menu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    }
+</script>
+
+<script>
+/**
+ * id.js — Free Fire UID Checker
+ */
+const gameIdInput = document.getElementById('gameId');
+const checkBtn = document.getElementById('checkBtn');
+const checkBtnText = document.getElementById('checkBtnText');
+const playerNickname = document.getElementById('playerNickname');
+const statusText = document.getElementById('statusText');
+const statusDot = document.getElementById('statusDot');
+
+window.isVerified = false;
+
+let checkTimeout;
+
+async function pasteGameId() {
+    try {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+            gameIdInput.value = text;
+            gameIdInput.dispatchEvent(new Event('input'));
+        }
+    } catch (err) {
+        console.error("Failed to paste:", err);
+        alert("Clipboard access denied. Please use Ctrl+V or long-press to paste.");
+    }
+}
+
+gameIdInput.addEventListener('input', () => {
+    gameIdInput.value = gameIdInput.value.replace(/[^0-9]/g, '');
+    const val = gameIdInput.value.trim();
+    
+    clearTimeout(checkTimeout);
+    
+    if (window.isVerified) {
+        window.isVerified = false;
+        playerNickname.innerText = "-";
+        playerNickname.className = "text-gray-300 font-bold ml-1 tracking-wide";
+        
+        statusText.innerText = "IDLE";
+        statusText.className = "text-gray-500 uppercase tracking-widest";
+        statusDot.className = "w-2 h-2 bg-gray-500 rounded-full mr-2 shadow-[0_0_8px_rgba(107,114,128,0.5)]";
+
+        window.dispatchEvent(new Event('verificationChanged'));
+    }
+
+    if (val.length >= 5) {
+        checkTimeout = setTimeout(() => {
+            checkNickname();
+        }, 800);
+    }
+});
+
+async function checkNickname() {
+    const userId = gameIdInput.value.trim();
+    if (!userId) return;
+
+    if (!userId) return;
+    
+    playerNickname.innerText = "Verifying...";
+    playerNickname.className = "text-[#10b981] font-bold ml-1 animate-pulse";
+    
+    statusText.innerText = "CHECKING";
+    statusText.className = "text-[#10b981] uppercase tracking-widest";
+    statusDot.className = "w-2 h-2 bg-[#10b981] rounded-full mr-2 shadow-[0_0_8px_rgba(6,182,212,0.5)] animate-pulse";
+
+    try {
+        const url = `https://v1.camrapidx.com/validate_user/FreeFire_Global.php?UserID=${encodeURIComponent(userId)}`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.status === "APPROVED") {
+            playerNickname.innerText = data.username;
+            playerNickname.className = "text-green-400 font-bold ml-1";
+            
+            statusText.innerText = "VERIFIED";
+            statusText.className = "text-green-400 uppercase tracking-widest";
+            statusDot.className = "w-2 h-2 bg-green-500 rounded-full mr-2 shadow-[0_0_8px_rgba(34,197,94,0.5)]";
+            
+            window.isVerified = true;
+        } else {
+            playerNickname.innerText = "Not Found";
+            playerNickname.className = "text-red-400 font-bold ml-1";
+            
+            statusText.innerText = "FAILED";
+            statusText.className = "text-red-400 uppercase tracking-widest";
+            statusDot.className = "w-2 h-2 bg-red-500 rounded-full mr-2 shadow-[0_0_8px_rgba(239,68,68,0.5)]";
+            
+            window.isVerified = false;
+        }
+    } catch (error) {
+        playerNickname.innerText = "Error";
+        playerNickname.className = "text-yellow-400 font-bold ml-1";
+        
+        statusText.innerText = "ERROR";
+        statusText.className = "text-yellow-400 uppercase tracking-widest";
+        statusDot.className = "w-2 h-2 bg-yellow-500 rounded-full mr-2 shadow-[0_0_8px_rgba(234,179,8,0.5)]";
+        
+        window.isVerified = false;
+    } finally {
+        window.dispatchEvent(new Event('verificationChanged'));
+    }
+}
+</script>
+
+<script>
+/**
+ * ff.js — NHOY TOPUP (Free Fire)
+ */
+const PAYMENT_API      = "https://backendtopup.onrender.com"; // relative path to backend
+const POLL_INTERVAL_MS = 4000;
+const MAX_POLL_MS      = 10 * 60 * 1000; // 10 minutes
+
+let packages        = [];
+let selectedPackage = null;
+let pollInterval    = null;
+let pollStartTime   = null;
+
+async function loadPackages() {
+    const container = document.getElementById('packageContainer');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="col-span-full flex items-center justify-center text-gray-500 text-xs py-10 font-bold uppercase tracking-widest">
+            <div class="w-4 h-4 border-2 border-gray-600 border-t-[#10b981] rounded-full animate-spin mr-3"></div> Loading Packages
+        </div>`;
+
+    try {
+        const res  = await fetch(`${PAYMENT_API}/api/packages/ff`);
+        const data = await res.json();
+
+        if (data.status !== "SUCCESS" || !data.packages?.length) {
+            container.innerHTML = `<p class="col-span-full text-center text-red-400 text-xs py-10 font-bold">Failed to load packages.</p>`;
+            return;
+        }
+
+        packages = data.packages;
+        document.getElementById('packageCount').innerText = `${packages.length} PACKAGES`;
+        document.getElementById('tabCount').innerText = `${packages.length} items`;
+        renderPackages();
+
+    } catch (e) {
+        container.innerHTML = `<p class="col-span-full text-center text-red-400 text-xs py-10 font-bold">OUT OF STOCK</p>`;
+    }
+}
+
+function renderPackages() {
+    const container = document.getElementById('packageContainer');
+    if (!container) return;
+
+    container.innerHTML = packages.map(pkg => `
+        <div onclick="selectPackage(${pkg.id})" id="pkg-${pkg.id}"
+             class="bg-[#22283D] border border-white/5 p-3 sm:p-4 rounded-xl cursor-pointer package-card
+                    flex items-center space-x-3 transition-all hover:border-[#10b981] hover:bg-[#2A314A] relative group">
+
+            <div class="relative w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-[#0B0F19] flex items-center justify-center shrink-0 border border-white/5 shadow-inner">
+                <img src="${pkg.image}" class="w-7 h-7 sm:w-8 sm:h-8 object-contain drop-shadow-md" alt="${pkg.name}" loading="lazy">
+            </div>
+
+            <div class="flex-1 min-w-0">
+                <p class="text-[#10b981] font-black text-sm sm:text-base leading-tight truncate">
+                    $${pkg.price.toFixed(2)}
+                </p>
+                <p class="text-[10px] text-gray-400 leading-tight font-bold mt-1 uppercase tracking-wider truncate group-hover:text-white transition-colors">
+                    ${pkg.name}
+                </p>
+            </div>
+
+            <div class="check-icon absolute -top-2 -right-2 w-5 h-5 bg-[#10b981] text-white text-[10px]
+                        flex items-center justify-center rounded-full hidden shadow-md ring-2 ring-[#1A1F33]">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+    `).join('');
+}
+
+function selectPackage(id) {
+    selectedPackage = packages.find(p => p.id === id) || null;
+    if (!selectedPackage) return;
+
+    document.getElementById('displayTotal').innerText   = `$${selectedPackage.price.toFixed(2)}`;
+    document.getElementById('displayProduct').innerText = selectedPackage.name;
+
+    document.querySelectorAll('.package-card').forEach(el => {
+        el.classList.remove('selected');
+        const check = el.querySelector('.check-icon');
+        if (check) check.classList.add('hidden');
+    });
+
+    const card = document.getElementById(`pkg-${id}`);
+    if (card) {
+        card.classList.add('selected');
+        const check = card.querySelector('.check-icon');
+        if (check) check.classList.remove('hidden');
+    }
+
+    updateButtonState();
+}
+
+function updateButtonState() {
+    const payBtn = document.getElementById('payBtn');
+    if (!payBtn) return;
+
+    const verified = (typeof isVerified !== 'undefined' && isVerified === true);
+    const termsAccepted = document.getElementById('termsCheck')?.checked;
+
+    if (selectedPackage && verified && termsAccepted) {
+        payBtn.disabled  = false;
+        payBtn.innerHTML = '<span id="payBtnText" class="flex items-center justify-center gap-2"><i class="fas fa-shopping-cart"></i> BUY NOW</span>';
+    } else {
+        payBtn.disabled  = true;
+        payBtn.innerHTML = '<span id="payBtnText" class="flex items-center justify-center gap-2"><i class="fas fa-lock text-gray-600"></i> BUY NOW</span>';
+    }
+}
+
+async function handlePayment() {
+    if (!selectedPackage) return;
+
+    const gid  = (document.getElementById('gameId') || {}).value?.trim() || '';
+    const sid  = (document.getElementById('serverId') || {}).value?.trim() || '';
+    const nick = (document.getElementById('playerNickname')|| {}).innerText || 'N/A';
+
+    if (!gid) { showToast("Please enter your Game ID.", "error"); return; }
+
+    const btn = document.getElementById('payBtn');
+    if (btn) {
+        btn.disabled  = true;
+        btn.innerHTML = `
+            <span class="relative z-10 flex items-center justify-center gap-2">
+                <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <span>PROCESSING...</span>
+            </span>
+        `;
+    }
+
+    try {
+        const response = await fetch(`${PAYMENT_API}/create-payment`, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                game:      "ff",
+                packageId: selectedPackage.id,
+                gameId:    gid,
+                serverId:  sid,
+                nickname:  nick,
+            }),
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+
+        if (data.status) {
+            showModal(data.qrString, data.orderId, selectedPackage.price, data.paymentUrl, data.expiresIn);
+            startPolling(data.orderId);
+        } else {
+            showToast("Error: " + (data.message || "Unknown error"), "error");
+            updateButtonState();
+        }
+    } catch (e) {
+        showToast("Cannot reach server. Is backend running?", "error");
+        updateButtonState();
+    }
+}
+
+function startPolling(orderId) {
+    stopPolling();
+    pollStartTime = Date.now();
+
+    pollInterval = setInterval(async () => {
+        if (Date.now() - pollStartTime > MAX_POLL_MS) {
+            stopPolling();
+            showToast("Payment window expired. Please try again.", "error");
+            closeModal();
+            return;
+        }
+        try {
+            const res  = await fetch(`${PAYMENT_API}/check-status/${orderId}`);
+            const data = await res.json();
+            switch (data.status) {
+                case "SUCCESS":
+                    stopPolling();
+                    showSuccessScreen(
+                        orderId,
+                        data.product || (selectedPackage ? selectedPackage.name : ''),
+                        data.game_id || (document.getElementById('gameId') || {}).value?.trim() || ''
+                    );
+                    break;
+                case "PAID_BUT_DELIVERY_FAILED":
+                    stopPolling();
+                    showToast(`Payment received! Delivery issue on #${orderId}. Staff will process.`, "warning", 8000);
+                    closeModal();
+                    break;
+                case "EXPIRED":
+                    stopPolling();
+                    showToast("QR code expired. Please start a new payment.", "error", 6000);
+                    closeModal();
+                    break;
+            }
+        } catch (e) { }
+    }, POLL_INTERVAL_MS);
+}
+
+function stopPolling() {
+    if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+}
+
+function showModal(qr, orderId, price, paymentUrl = '', expiresIn = '5 minutes') {
+    const modal = document.getElementById('paymentModal');
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    modal.classList.add('modal-active');
+    const amountEl  = document.getElementById('modalAmount');
+    const qrWrapper = document.getElementById('qrcode');
+    if (amountEl) amountEl.innerText = price.toFixed(2);
+    if (qrWrapper) {
+        qrWrapper.innerHTML = "";
+        new QRCode(qrWrapper, {
+            text:         qr,
+            width:        150,
+            height:       150,
+            correctLevel: QRCode.CorrectLevel.M,
+        });
+    }
+}
+
+function closeModal() {
+    stopPolling();
+    const modal = document.getElementById('paymentModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('modal-active');
+    }
+    updateButtonState();
+}
+
+function showSuccessScreen(orderId, productName, gameId) {
+    const sheet = document.getElementById('modalSheet');
+    if (!sheet) return;
+
+    sheet.innerHTML = `
+        <div class="py-12 px-8 text-center bg-[#1A1F33] rounded-2xl relative overflow-hidden border border-white/5 shadow-2xl">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-green-500/10 rounded-full blur-3xl opacity-50 -z-10"></div>
+
+            <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-green-500/20 ring-4 ring-green-500/10">
+                <i class="fas fa-check text-4xl text-white"></i>
+            </div>
+
+            <h2 class="text-2xl font-black text-white mb-1 uppercase tracking-widest oswald">SUCCESSFUL!</h2>
+            <p class="text-green-400 font-bold text-xs mb-8">Diamonds sent to your account 🔥</p>
+
+            <div class="bg-[#0B0F19] rounded-xl p-5 mb-8 text-left space-y-3 border border-white/5 shadow-inner">
+                <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                    <span class="text-gray-500 text-[10px] font-black uppercase tracking-widest">Order Ref</span>
+                    <span class="text-white font-bold font-mono text-xs">#${orderId}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-500 text-[10px] font-black uppercase tracking-widest">Product</span>
+                    <span class="text-[#10b981] font-bold text-xs truncate ml-4">${productName}</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center gap-2 mb-2 w-full">
+                <p id="autoCloseText" class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Auto-closing in 20s</p>
+                <div class="w-full h-1 bg-[#0B0F19] rounded-full overflow-hidden">
+                    <div id="progressBar" class="h-full bg-green-500 transition-all duration-1000 ease-linear" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <button onclick="closeModal()" class="mt-6 w-full bg-[#2A314A] hover:bg-[#323b59] text-white py-3.5 rounded-xl font-bold text-xs tracking-widest uppercase active:scale-95 transition-all shadow-lg border border-white/5">
+                Close
+            </button>
+        </div>
+    `;
+
+    let timeLeft = 20;
+    const timer = setInterval(() => {
+        timeLeft--;
+        const textEl = document.getElementById('autoCloseText');
+        const barEl  = document.getElementById('progressBar');
+        if (textEl) textEl.innerText = `Auto-closing in ${timeLeft}s`;
+        if (barEl)  barEl.style.width = `${(timeLeft / 20) * 100}%`;
+        if (timeLeft <= 0) { clearInterval(timer); closeModal(); }
+    }, 1000);
+}
+
+function showToast(message, type = "info", duration = 4000) {
+    const existing = document.getElementById('irra-toast');
+    if (existing) existing.remove();
+
+    const colours = { success: "bg-green-600/90 border-green-500", error: "bg-red-600/90 border-red-500", warning: "bg-yellow-500/90 border-yellow-400", info: "bg-blue-600/90 border-blue-500" };
+    const icons   = { success: "fa-check-circle", error: "fa-times-circle", warning: "fa-exclamation-triangle", info: "fa-info-circle" };
+
+    const toast = document.createElement('div');
+    toast.id    = 'irra-toast';
+    toast.className = `fixed bottom-10 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-2xl backdrop-blur-md text-white text-sm font-bold tracking-wide transition-all duration-300 opacity-0 translate-y-4 border ${colours[type] || colours.info}`;
+    toast.style.maxWidth = "90vw";
+    toast.innerHTML = `<i class="fas ${icons[type] || icons.info} text-lg drop-shadow-md"></i> <span>${message}</span>`;
+    document.body.appendChild(toast);
+
+    requestAnimationFrame(() => toast.classList.remove('opacity-0', 'translate-y-4'));
+    setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-4');
+        toast.addEventListener('transitionend', () => toast.remove(), { once: true });
+    }, duration);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadPackages();
+    updateButtonState();
+    window.addEventListener('verificationChanged', updateButtonState);
+});
+</script>
+</body>
+</html>

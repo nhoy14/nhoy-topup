@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" oncontextmenu="return false;">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>NHOY TOPUP</title>
+    <meta name="title" content="NHOY TOPUP - Reliable Game Top-Up Service">
+    <meta name="description" content="សេវាកម្មបញ្ចូលពេជ្រហ្គេម Mobile Legends និង Free Fire រហ័ស ទាន់ចិត្ត និងសុវត្ថិភាព ១០០%">
+    
+    <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/4d2LRF8t/photo-2026-04-09-10-37-33-removebg-preview.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;600;700&display=swap');
+        
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        body { 
+            background-color: #0B0F19; /* Darkest background */
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; 
+            min-height: 100vh;
+        }
+        
+        .oswald { font-family: 'Oswald', sans-serif; }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+
+        .game-card { transition: all 0.3s ease; }
+        .game-card:hover { transform: translateY(-4px); border-color: #10b981; box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.2); }
+        .game-card:active { transform: translateY(0) scale(0.98); }
+    </style>
+</head>
+<body class="pb-10">
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="bg-[#111624] border-b border-white/5 sticky top-0 z-50 shadow-xl">
+    <div class="max-w-[1200px] mx-auto px-4 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <button onclick="toggleMenu()" class="text-xl text-gray-300 hover:text-white transition">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href='index.html'">
+                <img src="https://i.postimg.cc/4d2LRF8t/photo-2026-04-09-10-37-33-removebg-preview.png" class="w-8 h-8 object-contain">
+                <h1 class="text-xl font-black oswald uppercase tracking-wider flex items-center">
+                    <span class="text-white">NHOY</span><span class="text-[#10b981]">TOPUP</span>
+                </h1>
+            </div>
+        </div>
+        
+        <!-- Desktop Search -->
+        <div class="hidden md:flex flex-1 max-w-md mx-8 relative">
+            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+            <input type="text" placeholder="What game are you looking for?" 
+                   class="w-full bg-[#1A1F33] text-sm text-white rounded-full py-2 pl-10 pr-4 outline-none border border-white/5 focus:border-[#10b981]/50 transition">
+            <button class="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 bg-[#0B0F19] rounded-full flex items-center justify-center text-[#10b981] text-xs hover:bg-[#10b981] hover:text-white transition">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <button class="bg-[#10b981] hover:bg-[#059669] text-white px-5 py-2 rounded-lg font-bold text-sm transition flex items-center gap-2 shadow-lg shadow-[#10b981]/20">
+            <i class="fas fa-sign-in-alt"></i> <span class="hidden sm:inline">Login</span>
+        </button>
+    </div>
+</nav>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<div class="max-w-[1200px] mx-auto px-4 py-8">
+
+    <!-- HERO SECTION -->
+    <div class="relative bg-[#1A1F33] rounded-3xl overflow-hidden shadow-2xl border border-white/5 mb-10 min-h-[300px] flex items-center">
+        <div class="absolute inset-0">
+            <img src="https://i.pinimg.com/736x/fa/a5/03/faa50399f05f48683edf56bd820a13db.jpg" class="w-full h-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#0B0F19] via-[#0B0F19]/90 to-transparent"></div>
+        </div>
+        <div class="relative z-10 p-8 md:p-12 max-w-2xl">
+            <div class="inline-block bg-[#10b981]/20 border border-[#10b981]/50 text-[#10b981] text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+                #1 Top Up Center in Cambodia
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black oswald uppercase tracking-wide text-white leading-tight mb-4">
+                Fast & Secure <span class="text-[#10b981]">Game Top Up</span>
+            </h2>
+            <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-8 max-w-lg">
+                Instant delivery, 100% safe, and 24/7 customer support. Get your game diamonds in seconds with ABA KHQR.
+            </p>
+            <div class="flex gap-4">
+                <a href="#games" class="bg-[#10b981] hover:bg-[#059669] text-white px-8 py-3.5 rounded-xl font-bold text-sm transition uppercase tracking-wider shadow-lg shadow-[#10b981]/20">
+                    Top Up Now
+                </a>
+                <a href="https://t.me/irra_topup" target="_blank" class="bg-[#111624] hover:bg-[#161a2b] border border-white/10 text-white px-8 py-3.5 rounded-xl font-bold text-sm transition uppercase tracking-wider flex items-center gap-2">
+                    <i class="fab fa-telegram text-[#10b981]"></i> Support
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- GAMES SECTION -->
+    <div id="games" class="mb-6 flex items-center gap-3">
+        <h3 class="text-2xl font-black oswald uppercase tracking-widest text-white flex items-center">
+            <i class="fas fa-gamepad text-[#10b981] mr-3"></i> Available Games
+        </h3>
+        <div class="flex-1 h-px bg-gradient-to-r from-white/10 to-transparent ml-4"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Mobile Legends KH -->
+        <div class="bg-[#1A1F33] border border-white/5 rounded-2xl overflow-hidden game-card cursor-pointer group relative" onclick="window.location.href='games/mobilelegends/index.html'">
+            <div class="absolute inset-0 bg-[#10b981]/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="h-32 relative">
+                <img src="assets/img/mlbb-bg-kh.png" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#1A1F33] to-transparent"></div>
+            </div>
+            <div class="p-5 relative">
+                <div class="w-16 h-16 rounded-xl overflow-hidden relative border-2 border-[#1A1F33] shrink-0 -mt-12 mb-3 bg-[#1A1F33] shadow-lg">
+                    <img src="https://i.pinimg.com/736x/d2/ef/4a/d2ef4a14520c95d8c0927cea7334488a.jpg" class="w-full h-full object-cover">
+                </div>
+                <h4 class="text-lg font-black oswald uppercase tracking-widest text-white mb-1 group-hover:text-[#10b981] transition-colors">Mobile Legends KH</h4>
+                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-4">🇰🇭 Cambodia Server</p>
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="bg-[#0B0F19] border border-white/5 text-gray-300 text-[9px] font-bold uppercase px-2 py-1 rounded">💎 Diamonds</span>
+                    <span class="bg-[#0B0F19] border border-white/5 text-gray-300 text-[9px] font-bold uppercase px-2 py-1 rounded">⚡ Instant</span>
+                </div>
+                <button class="w-full bg-[#0B0F19] border border-white/5 group-hover:bg-[#10b981] group-hover:border-[#10b981] text-white py-3 rounded-xl font-bold text-xs tracking-widest uppercase transition-colors">
+                    Top Up <i class="fas fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Legends PH -->
+        <div class="bg-[#1A1F33] border border-white/5 rounded-2xl overflow-hidden game-card cursor-pointer group relative" onclick="window.location.href='games/mobilelegends-ph/index.html'">
+            <div class="absolute inset-0 bg-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="h-32 relative">
+                <img src="assets/img/mlbb-bg.png" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#1A1F33] to-transparent"></div>
+            </div>
+            <div class="p-5 relative">
+                <div class="w-16 h-16 rounded-xl overflow-hidden relative border-2 border-[#1A1F33] shrink-0 -mt-12 mb-3 bg-[#1A1F33] shadow-lg">
+                    <img src="assets/img/mlbb-icon.png" class="w-full h-full object-cover">
+                </div>
+                <h4 class="text-lg font-black oswald uppercase tracking-widest text-white mb-1 group-hover:text-purple-400 transition-colors">Mobile Legends PH</h4>
+                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-4">🇵🇭 Philippines Server</p>
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="bg-[#0B0F19] border border-white/5 text-gray-300 text-[9px] font-bold uppercase px-2 py-1 rounded">💎 Diamonds</span>
+                    <span class="bg-[#0B0F19] border border-white/5 text-gray-300 text-[9px] font-bold uppercase px-2 py-1 rounded">⚡ Instant</span>
+                </div>
+                <button class="w-full bg-[#0B0F19] border border-white/5 group-hover:bg-purple-500 group-hover:border-purple-500 text-white py-3 rounded-xl font-bold text-xs tracking-widest uppercase transition-colors">
+                    Top Up <i class="fas fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Free Fire -->
+        <div class="bg-[#1A1F33] border border-white/5 rounded-2xl overflow-hidden game-card cursor-pointer group relative" onclick="window.location.href='games/freefire/index.html'">
+            <div class="absolute inset-0 bg-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="h-32 relative">
+                <img src="https://i.pinimg.com/736x/fa/a5/03/faa50399f05f48683edf56bd820a13db.jpg" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#1A1F33] to-transparent"></div>
+            </div>
+            <div class="p-5 relative">
+                <div class="w-16 h-16 rounded-xl overflow-hidden relative border-2 border-[#1A1F33] shrink-0 -mt-12 mb-3 bg-[#1A1F33] shadow-lg">
+                    <img src="https://play-lh.googleusercontent.com/Tzh1vMigK1Cn7_KIaMvKBVQRQapIMWMMqqyA6UqJTAYRpino4vvX6ZvYcVjZ_D8g19-DfHKCVeO2QPWl8vHGzw=w480-h960" class="w-full h-full object-cover">
+                </div>
+                <h4 class="text-lg font-black oswald uppercase tracking-widest text-white mb-1 group-hover:text-orange-400 transition-colors">Free Fire KH</h4>
+                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-4">🇰🇭 Cambodia Server</p>
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="bg-[#0B0F19] border border-white/5 text-gray-300 text-[9px] font-bold uppercase px-2 py-1 rounded">💎 Diamonds</span>
+                    <span class="bg-[#0B0F19] border border-white/5 text-gray-300 text-[9px] font-bold uppercase px-2 py-1 rounded">⚡ Instant</span>
+                </div>
+                <button class="w-full bg-[#0B0F19] border border-white/5 group-hover:bg-orange-500 group-hover:border-orange-500 text-white py-3 rounded-xl font-bold text-xs tracking-widest uppercase transition-colors">
+                    Top Up <i class="fas fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="bg-[#0B0F19] border-t border-white/5 mt-10 py-12 relative overflow-hidden" style="background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.2) 0px, rgba(0,0,0,0.2) 2px, transparent 2px, transparent 8px);">
+    
+    <div class="max-w-[1200px] mx-auto px-4 relative z-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+        
+        <!-- Column 1 -->
+        <div>
+            <div class="flex items-center gap-3 mb-4">
+                <img src="https://i.postimg.cc/4d2LRF8t/photo-2026-04-09-10-37-33-removebg-preview.png" class="w-10 h-10 rounded-full object-cover">
+                <h2 class="text-xl font-bold text-white tracking-wide">nhoy Hub</h2>
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                Your source for esign, Trollstore, and other iOS utilities. Providing free downloads and resources for the community.
+            </p>
+            <div class="flex space-x-3">
+                <a href="#" class="w-8 h-8 rounded-full bg-[#1A1F33] flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition"><i class="fab fa-telegram-plane text-sm"></i></a>
+                <a href="#" class="w-8 h-8 rounded-full bg-[#1A1F33] flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition"><i class="fab fa-facebook-f text-sm"></i></a>
+                <a href="#" class="w-8 h-8 rounded-full bg-[#1A1F33] flex items-center justify-center text-gray-400 hover:text-white hover:bg-red-600 transition"><i class="fab fa-youtube text-sm"></i></a>
+                <a href="#" class="w-8 h-8 rounded-full bg-[#1A1F33] flex items-center justify-center text-gray-400 hover:text-white hover:bg-purple-500 transition"><i class="fab fa-instagram text-sm"></i></a>
+            </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div>
+            <h3 class="text-white font-bold mb-4 relative inline-block">
+                Quick Links
+                <span class="absolute -bottom-1 left-0 w-8 h-0.5 bg-[#10b981]"></span>
+            </h3>
+            <ul class="space-y-3 mt-4">
+                <li><a href="#" class="text-gray-400 text-sm hover:text-white transition">Home</a></li>
+                <li><a href="#" class="text-gray-400 text-sm hover:text-white transition">ESIGN</a></li>
+                <li><a href="#" class="text-gray-400 text-sm hover:text-white transition">Roblox Hack</a></li>
+                <li><a href="#" class="text-gray-400 text-sm hover:text-white transition">Troll Store</a></li>
+                <li><a href="#" class="text-gray-400 text-sm hover:text-white transition">About</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 3 -->
+        <div>
+            <h3 class="text-white font-bold mb-4 relative inline-block">
+                Contact Us
+                <span class="absolute -bottom-1 left-0 w-8 h-0.5 bg-[#10b981]"></span>
+            </h3>
+            <div class="space-y-4 mt-4">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-envelope text-gray-400 mt-1"></i>
+                    <p class="text-gray-400 text-sm leading-relaxed">For support, please reach out via our social channels.</p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-info-circle text-gray-400 mt-1"></i>
+                    <p class="text-gray-400 text-sm leading-relaxed">We do not offer direct phone or email support at this time.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="max-w-[1200px] mx-auto px-4 relative z-10 mt-10 pt-6 border-t border-white/5 text-center flex flex-col items-center">
+        <p class="text-xs text-gray-600 font-medium tracking-wide">© 2026 Nhoytopup.store. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<!-- ═══════════ SIDEBAR MENU ═══════════ -->
+<div id="sidebarOverlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/80 z-[60] hidden backdrop-blur-sm"></div>
+<div id="sidebarMenu" class="fixed top-0 left-0 h-full w-[280px] bg-[#111624] z-[70] shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col border-r border-white/5">
+    <div class="flex justify-between items-center mb-10">
+        <h1 class="text-2xl font-black oswald text-white italic tracking-tighter">NHOY<span class="text-[#10b981]">TOPUP</span></h1>
+        <button onclick="toggleMenu()" class="text-gray-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="flex flex-col space-y-6">
+        <a href="index.html" class="flex items-center text-sm font-bold text-gray-300 hover:text-[#10b981] transition group">
+            <div class="w-8 h-8 rounded bg-[#1A1F33] group-hover:bg-[#10b981]/10 flex items-center justify-center mr-3 transition"><i class="fas fa-home text-[#10b981]"></i></div> Home
+        </a>
+        <a href="https://t.me/irra_topup" target="_blank" class="flex items-center text-sm font-bold text-gray-300 hover:text-[#10b981] transition group">
+            <div class="w-8 h-8 rounded bg-[#1A1F33] group-hover:bg-[#10b981]/10 flex items-center justify-center mr-3 transition"><i class="fab fa-telegram text-[#10b981]"></i></div> Contact Support
+        </a>
+    </div>
+</div>
+
+<script>
+    function toggleMenu() {
+        const menu    = document.getElementById('sidebarMenu');
+        const overlay = document.getElementById('sidebarOverlay');
+        if (menu.classList.contains('-translate-x-full')) {
+            menu.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        } else {
+            menu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    }
+</script>
+
+</body>
+</html>

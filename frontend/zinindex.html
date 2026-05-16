@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" oncontextmenu="return false;">
+<head>
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Primary Meta Tags -->
+    <title>NHOY TOPUP </title>
+    <meta name="title" content="NHOY TOPUP - Reliable Game Top-Up Service">
+    <meta name="description" content="សេវាកម្មបញ្ចូលពេជ្រហ្គេម (Mobile Legends, Free Fire) ដែលរហ័ស ទាន់ចិត្ត និងសុវត្ថិភាព ១០០% សម្រាប់អ្នកលេងហ្គេមក្នុងប្រទេសកម្ពុជា។">
+
+    <!-- Open Graph / Facebook / Telegram -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.irratopup.store">
+    <meta property="og:title" content="NHOY TOPUP - ផ្ដល់ទំនុកចិត្តខ្ពស់លើការបញ្ចូលពេជ្រហ្គេម">
+    <meta property="og:description" content="បញ្ចូលពេជ្រហ្គេមដែលអ្នកចូលចិត្តនៅទីនេះ! សេវាកម្មរហ័ស តម្លៃសមរម្យ និងមានសុវត្ថិភាពបំផុត។">
+    <!-- រូបភាពដែលបង្ហាញពេលផ្ញើ Link ទៅកាន់ Facebook ឬ Telegram -->
+    <meta property="og:image" content="https://i.pinimg.com/736x/b0/9a/bf/b09abfa7e348a27392570343c8ba4d5a.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.irratopup.store">
+    <meta property="twitter:title" content="NHOY TOPUP - ផ្ដល់ទំនុកចិត្តខ្ពស់លើការបញ្ចូលពេជ្រហ្គេម">
+    <meta property="twitter:description" content="បញ្ចូលពេជ្រហ្គេមដែលអ្នកចូលចិត្តនៅទីនេះ! សេវាកម្មរហ័ស តម្លៃសមរម្យ និងមានសុវត្ថិភាពបំផុត។">
+    <meta property="twitter:image" content="https://i.pinimg.com/736x/b0/9a/bf/b09abfa7e348a27392570343c8ba4d5a.jpg">
+
+    <!-- Favicon (រូប Logo តូចនៅលើ Tab Browser) -->
+    <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/4d2LRF8t/photo-2026-04-09-10-37-33-removebg-preview.png">
+    
+    <!-- Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Oswald:wght@400;700&display=swap');
+        * { -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+        body { background-color: #0f172a; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .oswald { font-family: 'Oswald', sans-serif; }
+        .bg-card { background-color: #1e293b; }
+        .bg-input { background-color: #0f172a; }
+        .text-blue-custom { color: #0d9bdd; }
+        
+        .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background-color: #1e293b; padding: 15px 20px; border-top: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; z-index: 50; }
+        
+        input { user-select: text !important; -webkit-user-select: text !important; }
+        .package-card { border: 2px solid transparent; transition: all 0.2s; }
+        .package-card.selected { border-color: #0d9bdd; background-color: rgba(13, 155, 221, 0.1); transform: scale(1.02); }
+        
+        /* Modal Animation */
+        .modal-active { display: flex !important; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Footer Custom Style to match image */
+        .custom-footer {
+            background-color: #1e293b;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        @keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.animate-slideUp {
+    animation: slideUp 0.3s ease-out;
+}
+    </style>
+</head>
+<body class="pb-32">
+
+   <!-- Navbar -->
+    <nav class="flex justify-between items-center p-4 bg-slate-900 shadow-lg sticky top-0 z-50">
+        <div class="flex items-center space-x-3">
+            <img src="https://i.pinimg.com/736x/b0/9a/bf/b09abfa7e348a27392570343c8ba4d5a.jpg" 
+                 alt="Logo" 
+                 class="w-10 h-10 rounded-full border-2 border-blue-500 object-cover">
+            <h1 class="text-3xl font-bold oswald text-blue-custom italic tracking-tighter">NHOYTOPUP</h1>
+        </div>
+        <b
+        <!-- Change your navbar button to this -->
+<button onclick="toggleMenu()" class="text-2xl"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <!-- Banner -->
+    <div class="p-4">
+        <div class="rounded-xl overflow-hidden shadow-2xl border border-slate-700">
+            <img src="https://i.pinimg.com/736x/fa/a5/03/faa50399f05f48683edf56bd820a13db.jpg" alt="Banner" class="w-full object-cover h-44">
+        </div>
+    </div>
+<!-- Pro Title Info Section -->
+<div class="px-4 py-3">
+    <div class="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 border border-slate-700/50 flex items-center space-x-4 shadow-xl">
+        
+        <!-- Game Icon with Glow & Border -->
+        <div class="relative shrink-0">
+            <div class="absolute -inset-1 bg-orange-500/20 rounded-xl blur-md"></div>
+            <img src="https://play-lh.googleusercontent.com/Op7v9XdsyxjrKImMD5RLyiLRCAHs3DMQFANwfsuMTw1hq0lH4j8tOqD3Fd7zyr4ixmC0xoqqRkQDBjAd46NsFQ=w240-h480" 
+                 class="relative w-14 h-14 rounded-xl shadow-2xl border border-white/10 object-cover" 
+                 alt="ML Icon">
+        </div>
+
+        <!-- Text & Badges Container -->
+        <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1.5">
+                <h2 class="text-xl font-black oswald uppercase italic tracking-wider text-orange-500 leading-none">
+                    Mobile Legends
+                </h2>
+                <!-- Verified Badge -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.64.304 1.24.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+            </div>
+
+            <!-- Modern Pills/Badges -->
+            <div class="flex flex-wrap gap-2">
+                <!-- Safety Badge -->
+                <div class="flex items-center bg-green-500/10 border border-green-500/20 px-2 py-0.5 rounded-full">
+                    <i class="fas fa-shield-alt text-[8px] text-green-500 mr-1.5"></i>
+                    <span class="text-[9px] font-bold text-green-400 uppercase tracking-tight">Safety Gurantees</span>
+                </div>
+                
+                <!-- Instant Badge -->
+                <div class="flex items-center bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-full">
+                    <i class="fas fa-bolt text-[8px] text-blue-400 mr-1.5"></i>
+                    <span class="text-[9px] font-bold text-blue-400 uppercase tracking-tight">Instant Delivery</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Dark Overlay -->
+<div id="sidebarOverlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/60 z-[60] hidden transition-opacity duration-300"></div>
+
+<!-- Sidebar Menu -->
+<div id="sidebarMenu" class="fixed top-0 right-0 h-full w-[280px] bg-[#0f172a] z-[70] shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col">
+    
+    <!-- Sidebar Header -->
+    <div class="flex justify-between items-center mb-10">
+         <h1 class="text-3xl font-bold oswald text-blue-custom italic tracking-tighter">NHOYTOPUP</h1>
+        <button onclick="toggleMenu()" class="text-white text-2xl">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Menu Links -->
+    <div class="flex flex-col space-y-8">
+        <a href="#" class="flex items-center text-lg font-bold text-gray-300 hover:text-white transition">
+            <i class="fas fa-home w-10 text-xl text-blue-500"></i> Home
+        </a>
+        
+        <!-- About Link -->
+        <a href="javascript:void(0)" onclick="openAbout()" class="flex items-center text-lg font-bold text-gray-300 hover:text-white transition">
+            <i class="fas fa-info-circle w-10 text-xl text-blue-500"></i> About
+        </a>
+
+        <!-- Contact Link -->
+        <a href="https://t.me/irra_topup" target="_blank" class="flex items-center text-lg font-bold text-gray-300 hover:text-white transition">
+            <i class="fab fa-telegram w-10 text-xl text-blue-500"></i> Contact
+        </a>
+    </div>
+</div>
+
+<!-- FULL SCREEN About Modal -->
+<div id="aboutModal" class="fixed inset-0 bg-[#0f172a] z-[100] hidden flex-col transition-all duration-300">
+    
+    <!-- Modal Header (Sticky) -->
+    <div class="flex justify-between items-center p-6 border-b border-slate-800 bg-[#161e2e]">
+        <h2 class="text-2xl font-bold oswald text-blue-custom italic tracking-widest uppercase">About NHOYTOPUP</h2>
+        <button onclick="closeAboutModal()" class="text-white bg-slate-800 w-10 h-10 rounded-full flex items-center justify-center active:scale-90 transition-transform">
+            <i class="fas fa-times text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Modal Content (Scrollable) -->
+    <div class="flex-1 overflow-y-auto p-6 space-y-8 pb-32 custom-scrollbar">
+        
+        <!-- Welcome Info -->
+        <div class="flex flex-col items-center text-center mb-4">
+            <div class="bg-blue-500/10 p-5 rounded-full mb-4">
+                <i class="fas fa-info-circle text-blue-500 text-4xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2 uppercase">Welcome to our store</h3>
+        </div>
+
+        <!-- Khmer Section -->
+        <div class="bg-slate-800/30 p-5 rounded-2xl border border-slate-700/50">
+            <h3 class="text-blue-400 font-bold text-sm uppercase tracking-widest mb-4 flex items-center">
+                <i class="fas fa-flag mr-2"></i> សេវាកម្មរបស់យើង
+            </h3>
+            <p class="text-gray-300 text-[15px] leading-loose italic">
+                NHOYTOPUP គឺជាគេហទំព័រឈានមុខគេក្នុងប្រទេសកម្ពុជាសម្រាប់ការបញ្ចូលទឹកប្រាក់ក្នុងហ្គេម។ យើងមានឯកទេសក្នុងការផ្តល់ជូននូវសេវាកម្មបញ្ចូលហ្គេមលឿន រហ័ស សុវត្ថិភាព និងគួរឱ្យទុកចិត្តសម្រាប់ហ្គេម។ សេវាកម្មរបស់យើងគឺផ្តល់ជូនអ្នកលេងហ្គេមនូវបទពិសោធន៍ដ៏ល្អបំផុតជាមួយនឹងការទទួលបានភ្លាមៗ តម្លៃសមរម្យ និងសេវាបំរើអតិថិជន ២៤ម៉ោង/៧ថ្ងៃ។
+            </p>
+        </div>
+
+        <!-- Trust Features -->
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
+                <i class="fas fa-bolt text-yellow-500 text-2xl mb-2"></i>
+                <p class="text-[10px] text-gray-500 uppercase">Instant</p>
+                <p class="text-xs font-bold">បញ្ចូលភ្លាមៗ</p>
+            </div>
+            <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-center">
+                <i class="fas fa-shield-alt text-green-500 text-2xl mb-2"></i>
+                <p class="text-[10px] text-gray-500 uppercase">Secure</p>
+                <p class="text-xs font-bold">សុវត្ថិភាព ១០០%</p>
+            </div>
+        </div>
+
+        <p class="text-[11px] text-gray-500 text-center uppercase tracking-widest">
+            Trusted by thousands of Cambodian Gamers
+        </p>
+    </div>
+</div>
+
+<style>
+    /* Custom CSS for the full screen modal scroll */
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    
+    /* Ensure the modal animation is smooth */
+    #aboutModal.flex {
+        animation: slideUp 0.3s ease-out;
+    }
+    
+    @keyframes slideUp {
+        from { transform: translateY(50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    /* CARD BASE */
+.package-card {
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+/* HOVER */
+.package-card:hover {
+    transform: translateY(-2px);
+}
+
+/* SELECTED STATE */
+.package-card.selected {
+    border-color: #3b82f6 !important;
+    background: rgba(59, 130, 246, 0.12);
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+    transform: scale(1.03);
+}
+
+/* SHOW CHECK ICON */
+.package-card.selected .check-icon {
+    display: flex;
+}
+/* smoother modal like iPhone */
+#paymentModal {
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+</style>
+
+<!-- Information Section -->
+<div class="p-4">
+    <div class="bg-card rounded-2xl p-5 shadow-lg border border-slate-700">
+        <div class="flex items-center mb-4 space-x-2">
+            <span class="bg-blue-600 w-8 h-8 rounded-full flex items-center justify-center text-sm"><i class="fas fa-user text-white"></i></span>
+            <h3 class="font-bold">Enter Your Information</h3>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+            <div class="relative">
+                <label class="absolute -top-2 left-3 bg-card px-1 text-[10px] text-gray-400">Game ID</label>
+                <input type="tel" id="gameId" placeholder="ID" class="w-full bg-input border border-slate-600 rounded-lg p-3 text-sm focus:border-blue-500 outline-none">
+            </div>
+            <div class="relative">
+                <label class="absolute -top-2 left-3 bg-card px-1 text-[10px] text-gray-400">Server ID</label>
+                <input type="tel" id="serverId" placeholder="Zone" class="w-full bg-input border border-slate-600 rounded-lg p-3 text-sm focus:border-blue-500 outline-none">
+            </div>
+        </div>
+
+       <!-- Update your button to start as disabled -->
+<!-- Pro Check User Button -->
+<button id="checkBtn" disabled onclick="checkNickname()" 
+    class="relative overflow-hidden w-full h-12 mt-4 rounded-xl font-black text-sm uppercase tracking-widest transition-all duration-300 group
+           /* ស្ទីលពេលបិទ (Disabled) */
+           disabled:bg-slate-800/50 disabled:text-gray-500 disabled:cursor-not-allowed disabled:border disabled:border-slate-700
+           /* ស្ទីលពេលបើក (Enabled) */
+           enabled:bg-gradient-to-r enabled:from-[#3b82f6] enabled:to-[#2563eb] enabled:text-white 
+           enabled:shadow-[0_8px_20px_-5px_rgba(59,130,246,0.4)]
+           enabled:active:scale-[0.97] enabled:hover:brightness-110">
+    
+    <span class="relative z-10 flex items-center justify-center gap-2">
+        <!-- Icon ស្វែងរក -->
+       
+        <span id="checkBtnText">Check User</span>
+    </span>
+
+    <!-- ពន្លឺរត់កាត់ប៊ូតុង (Shimmer Effect) ពេល Enable -->
+    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-enabled:animate-shimmer"></span>
+</button>
+
+<style>
+    /* ចលនាពន្លឺរត់កាត់ប៊ូតុង */
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    .group-enabled\:animate-shimmer {
+        animation: shimmer 2.5s infinite;
+    }
+</style>
+        <div class="mt-4 flex justify-between text-sm px-1 border-t border-slate-700 pt-3">
+            <span class="text-gray-400">Player:</span>
+            <span id="playerNickname" class="text-red-400 font-bold italic text-right">Not Checked</span>
+        </div>
+    </div>
+</div>
+    <!-- Packages Grid -->
+    <div class="px-4 mt-2">
+        <h3 class="oswald uppercase font-bold text-lg mb-3 tracking-widest flex items-center"><i class="fas fa-gem text-blue-400 mr-2"></i>PACKAGES</h3>
+        <div class="grid grid-cols-2 gap-3" id="packageContainer"></div>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="p-4 mt-4">
+        <h3 class="font-bold text-lg mb-3 flex items-center">
+            <span class="bg-blue-400/20 text-blue-400 p-1 rounded-lg mr-2"><i class="fas fa-money-check"></i></span> Payment Method
+        </h3>
+        <div class="bg-card rounded-2xl border-2 border-blue-500 relative p-3">
+            <div class="flex items-center">
+                <!-- REMOVED bg-white here as requested -->
+                <div class="w-14 h-14 mr-3 p-1">
+                    <img src="https://saktopup.com/assets/icon/KHQR.png" class="w-full h-full object-contain">
+                </div>
+                <div>
+                    <p class="font-bold text-md">BAKONG KHQR</p>
+                    <p class="text-[11px] text-gray-400">Scan to pay with any banking app</p>
+                </div>
+            </div>
+            <div class="absolute top-0 right-0 bg-blue-400 text-slate-900 w-8 h-7 rounded-bl-xl flex items-center justify-center">
+                <i class="fas fa-check font-bold"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPDATED FOOTER TO MATCH IMAGE -->
+    <footer class="custom-footer mt-10">
+        <h3 class="font-bold mb-4">Contact Us:</h3>
+        <div class="flex justify-center space-x-4 mb-8">
+            <a href="#" class="text-4xl text-white"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="text-4xl text-white"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="text-4xl text-white"><i class="fab fa-youtube"></i></a>
+        </div>
+
+        <h3 class="font-bold mb-4">Accept Payment:</h3>
+        <div class="flex justify-center mb-8">
+           <div class=" items-center justify-center">
+   <img src="https://saktopup.com/assets/icon/KHQR.png" class="h-9 brightness" alt="KHQR">
+</div>
+        </div>
+
+        <div class="text-sm space-x-2 mb-2">
+            <a href="#" class="underline">Privacy Policy</a>
+            <span>|</span>
+            <a href="#" class="underline">Terms and Condition</a>
+        </div>
+        <p class="text-sm text-gray-300"> © 2026 Nhoytopup.store. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bottom Action Bar -->
+    <div class="bottom-bar shadow-2xl">
+        <div>
+            <p class="text-sm text-gray-400">Total: <span class="text-blue-custom font-bold text-lg" id="displayTotal">$0.00</span></p>
+            <p class="text-[10px] text-gray-500 uppercase">Product: <span id="displayProduct" class="text-white">-</span></p>
+        </div>
+<!-- Pro Pay Button -->
+<button id="payBtn" disabled onclick="handlePayment()" 
+    class="relative overflow-hidden px-8 py-3 rounded-xl font-black text-sm uppercase tracking-wider transition-all duration-300 
+           disabled:bg-slate-800 disabled:text-gray-500 disabled:cursor-not-allowed disabled:opacity-70
+           enabled:bg-gradient-to-r enabled:from-[#009FE3] enabled:to-[#0073BA] enabled:text-white 
+           enabled:shadow-[0_8px_20px_-5px_rgba(0,159,227,0.5)]
+           enabled:active:scale-95 enabled:hover:brightness-110 group">
+    
+    <span class="relative z-10 flex items-center gap-2">
+        <!-- ថែម ID ឱ្យអក្សរនៅទីនេះ -->
+        <span id="payBtnText">Pay Now</span>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-enabled:group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+    </span>
+
+    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-enabled:animate-shimmer"></span>
+</button>
+<style>
+    /* ចលនាពន្លឺរត់កាត់ប៊ូតុង */
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    .group-enabled\:animate-shimmer {
+        animation: shimmer 2s infinite;
+    }
+</style>
+    </div>
+    <!-- <img id="selectedImage" 
+     src="" 
+     class="w-12 h-12 rounded-lg object-cover mb-2"> -->
+<!-- បន្ថែម class "hidden" នៅត្រង់នេះ -->
+<div id="paymentModal" class="fixed inset-0 z-[100] hidden flex items-end justify-center">
+
+    <!-- BACKDROP -->
+    <div onclick="closeModal()" class="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
+
+    <!-- BOTTOM SHEET CONTAINER -->
+    <div class="relative w-full max-w-md bg-white rounded-t-[2.5rem] overflow-hidden animate-slideUp shadow-2xl">
+        
+        <!-- RED HEADER -->
+         <div class="bg-[#E31E24] pt-1 pb-8 flex flex-col items-center relative">
+            <div class="w-10 h-1 bg-white/30 rounded-full mb-4"></div>
+            <img src="https://saktopup.com/assets/icon/KHQR.png" class="h-10 " alt="KHQR">
+            <button onclick="closeModal()" class="absolute right-6 top-6 text-white/90">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- WHITE CONTENT CARD -->
+        <div class="bg-white -mt-6 rounded-t-[2rem] relative px-8 pt-8 pb-10">
+            
+            <!-- Merchant & Amount (អក្សរនៅឆ្វេង) -->
+            <div class="text-left mb-4 px-20 "> 
+                <p class="text-[14px] font-bold text-gray-800">Nhoy Topup</p>
+                <div class="flex items-baseline justify-start">
+                    <span id="modalAmount" class="text-3xl font-black text-gray-900 leading-none">1.45</span>
+                    <span class="ml-1 text-xs font-bold text-gray-500 uppercase">USD</span>
+                </div>
+            </div>
+
+            <div class="border-t border-dashed border-gray-300 w-full my-5"></div>
+
+            <!-- QR CODE -->
+            <div class="flex justify-center mb-8">
+                <div class="relative p-2 bg-white rounded-xl border border-gray-100 shadow-sm">
+                    <div id="qrcode" class="w-48 h-48 bg-gray-50 flex items-center justify-center">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=SakTopup" alt="QR Code" class="w-full h-full" />
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-[#1a2b48] border-4 border-white w-12 h-12 rounded-full flex items-center justify-center shadow-md">
+                            <span class="text-white text-xl font-bold">$</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center text-[11px] text-gray-400 mt-6 leading-tight">
+                Scan with any Mobile Banking App supporting KHQR
+            </p>
+        </div>
+    </div>
+</div>
+
+           
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+    }
+    .animate-slideUp {
+        animation: slideUp 0.3s ease-out forwards;
+    }
+</style>
+
+    <script src="checkid.js"></script>
+    <script src="payment.js"></script>
+    <script>
+   function toggleMenu() {
+    const menu = document.getElementById('sidebarMenu');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    if (menu.classList.contains('translate-x-full')) {
+        menu.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; 
+    } else {
+        menu.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = 'auto'; 
+    }
+}
+
+function openAbout() {
+    // 1. Close the sidebar first
+    toggleMenu(); 
+    
+    // 2. Show the About Modal Full Screen
+    const modal = document.getElementById('aboutModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex'); // Flex allows column layout for header and body
+    
+    // Lock scrolling on the main page
+    document.body.style.overflow = 'hidden';
+}
+
+function closeAboutModal() {
+    const modal = document.getElementById('aboutModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    
+    // Re-enable scrolling on the main page
+    document.body.style.overflow = 'auto';
+}
+
+// Since it's full screen, window.onclick "outside" won't trigger 
+// as easily, but we keep it just in case for large desktops.
+window.onclick = function(event) {
+    const modal = document.getElementById('aboutModal');
+    if (event.target == modal) {
+        closeAboutModal();
+    }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Environment Variables
+.env
+backend/.env
+
+# Python Caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Scratch Files
+scratch/
+
+# OS Files
+.DS_Store
+Thumbs.db
